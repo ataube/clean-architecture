@@ -1,15 +1,11 @@
-
 function ProductStoreImpl(pgClient) {
   async function createProduct(product) {
     try {
       const query = {
-        text: 'INSERT INTO product(sku, brand, description) VALUES($1, $2, $3) RETURNING *',
-        values: [
-          product.sku,
-          product.brand,
-          product.description
-        ],
-      }
+        text:
+          'INSERT INTO product(sku, brand, description) VALUES($1, $2, $3) RETURNING *',
+        values: [product.sku, product.brand, product.description]
+      };
       await pgClient.query('BEGIN');
       const { rows: [row] } = await pgClient.query(query);
       await pgClient.query('COMMIT');
@@ -21,16 +17,17 @@ function ProductStoreImpl(pgClient) {
         description: row.description,
         createdAt: row.created_at
       };
-    } catch(e) {
+    } catch (e) {
       // TODO use logger
-      console.log('>>>', e)
+      console.log('>>>', e);
       await pgClient.query('ROLLBACK');
+      throw e;
     }
   }
 
   return {
     createProduct
-  }
+  };
 }
 
 module.exports = ProductStoreImpl;

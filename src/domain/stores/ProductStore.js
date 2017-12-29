@@ -2,7 +2,7 @@ const assert = require('assert');
 
 function ProductStore(adapter) {
   assert.ok(adapter);
-  
+
   /**
    * Creates a new product
    * @param {Product} product

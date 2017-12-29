@@ -9,7 +9,7 @@ function ProductInteractor(entities, productStore, events) {
   async function createProduct(productData) {
     const product = entities.Product.create(productData);
     const newProduct = await productStore.createProduct(product);
-    events.emit(types.PRODUCT_CREATED , entities.Product.create(newProduct));
+    events.emit(types.PRODUCT_CREATED, entities.Product.create(newProduct));
     return newProduct.id;
   }
 

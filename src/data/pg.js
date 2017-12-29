@@ -7,13 +7,13 @@ function connect({ appName, dbUrl, sslRootCert, clientOptions = {} }) {
   }
   const parsedUrl = dbUrl ? pgConnectionParse.parse(dbUrl) : {};
   const configuration = Object.assign({}, clientOptions, parsedUrl, {
-    application_name: appName,
+    application_name: appName
   });
 
   if (sslRootCert) {
     configuration.ssl = {
       rejectUnauthorized: true,
-      ca: sslRootCert,
+      ca: sslRootCert
     };
   }
 
@@ -23,7 +23,7 @@ function connect({ appName, dbUrl, sslRootCert, clientOptions = {} }) {
   return {
     configuration,
     client,
-    pool,
+    pool
   };
 }
 

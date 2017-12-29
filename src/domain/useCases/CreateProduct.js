@@ -1,4 +1,5 @@
 const assert = require('assert');
+
 function CreateProductUseCase(productInteractor) {
   assert.ok(productInteractor);
 

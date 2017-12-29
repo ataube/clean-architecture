@@ -10,15 +10,18 @@ class Product {
   }
 
   static get struct() {
-    return struct({
-      id: 'number?',
-      sku: 'string',
-      description: 'string',
-      brand: 'string',
-      createdAt: 'date'
-    }, {
-      createdAt: new Date()
-    });
+    return struct(
+      {
+        id: 'number?',
+        sku: 'string',
+        description: 'string',
+        brand: 'string',
+        createdAt: 'date'
+      },
+      {
+        createdAt: new Date()
+      }
+    );
   }
 }
 

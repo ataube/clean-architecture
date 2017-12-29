@@ -7,9 +7,9 @@ function init(config) {
     dbUrl: config.dbUrl
   });
 
-  const entities = domain.entities;
-  const eventBus = domain.events.domainEventBus;
-  
+  const { entities, events } = domain;
+  const eventBus = events.domainEventBus;
+
   /**
    * Data: Stores
    */
@@ -23,14 +23,19 @@ function init(config) {
   /**
    * Domain: Interactors
    */
-  const productInteractor = domain.interactors.ProductInteractor(entities, productStore, eventBus);
+  const productInteractor = domain.interactors.ProductInteractor(
+    entities,
+    productStore,
+    eventBus
+  );
 
   /**
    * Domain: UseCases
    */
-  const createProductUseCase = domain.useCases.CreateProductUseCase(productInteractor);
+  const createProductUseCase = domain.useCases.CreateProductUseCase(
+    productInteractor
+  );
 
-  
   return {
     useCases: {
       createProductUseCase
