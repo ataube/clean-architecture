@@ -1,7 +1,7 @@
 const assert = require('assert');
 const { types } = require('../events');
 
-function ProductInteractor(entities, productStore, events) {
+function productInteractor(entities, productStore, events) {
   assert.ok(entities);
   assert.ok(productStore);
   assert.ok(events);
@@ -18,4 +18,4 @@ function ProductInteractor(entities, productStore, events) {
   };
 }
 
-module.exports = ProductInteractor;
+module.exports = productInteractor;

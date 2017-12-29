@@ -13,17 +13,17 @@ function init(config) {
   /**
    * Data: Stores
    */
-  const productStoreAdapter = data.stores.ProductStoreImpl(client);
+  const pgProductStore = data.stores.pgProductStore(client);
 
   /**
    * Domain: Stores
    */
-  const productStore = domain.stores.ProductStore(productStoreAdapter);
+  const productStore = domain.stores.productStore(pgProductStore);
 
   /**
    * Domain: Interactors
    */
-  const productInteractor = domain.interactors.ProductInteractor(
+  const productInteractor = domain.interactors.productInteractor(
     entities,
     productStore,
     eventBus
@@ -32,7 +32,7 @@ function init(config) {
   /**
    * Domain: UseCases
    */
-  const createProductUseCase = domain.useCases.CreateProductUseCase(
+  const createProductUseCase = domain.useCases.createProductUseCase(
     productInteractor
   );
 

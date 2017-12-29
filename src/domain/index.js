@@ -1,7 +1,7 @@
 const Product = require('./entities/Product');
-const ProductInteractor = require('./interactors/ProductInteractor');
-const ProductStore = require('./stores/ProductStore');
-const CreateProductUseCase = require('./useCases/CreateProduct');
+const productInteractor = require('./interactors/productInteractor');
+const productStore = require('./stores/productStore');
+const createProductUseCase = require('./useCases/createProduct');
 const events = require('./events');
 
 module.exports = {
@@ -10,12 +10,12 @@ module.exports = {
     Product
   },
   interactors: {
-    ProductInteractor
+    productInteractor
   },
   stores: {
-    ProductStore
+    productStore
   },
   useCases: {
-    CreateProductUseCase
+    createProductUseCase
   }
 };

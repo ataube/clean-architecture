@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-function ProductStore(adapter) {
+function productStore(adapter) {
   assert.ok(adapter);
 
   /**
@@ -18,4 +18,4 @@ function ProductStore(adapter) {
   };
 }
 
-module.exports = ProductStore;
+module.exports = productStore;

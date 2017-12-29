@@ -1,4 +1,4 @@
-function ProductStoreImpl(pgClient) {
+function pgProductStore(pgClient) {
   async function createProduct(product) {
     try {
       const query = {
@@ -30,4 +30,4 @@ function ProductStoreImpl(pgClient) {
   };
 }
 
-module.exports = ProductStoreImpl;
+module.exports = pgProductStore;

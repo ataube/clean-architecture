@@ -1,9 +1,9 @@
 const pg = require('./pg');
-const ProductStoreImpl = require('./stores/ProductStoreImpl');
+const pgProductStore = require('./stores/pgProductStore');
 
 module.exports = {
   stores: {
-    ProductStoreImpl
+    pgProductStore
   },
   driver: {
     pg
