@@ -6,11 +6,12 @@ function productStore(adapter) {
   /**
    * Creates a new product
    * @param {Product} product
+   * @param {Object} options
    * @returns {number} the product id
    */
-  async function createProduct(product) {
+  async function createProduct(product, { trx }) {
     assert.ok(product.constructor.name === 'Product');
-    return adapter.createProduct(product);
+    return adapter.createProduct(product, { trx });
   }
 
   return {
