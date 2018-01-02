@@ -12,7 +12,7 @@ function init(config) {
   const eventBus = events.domainEventBus;
 
   /**
-   * Data: Stores
+   * Application: Stores
    */
   const pgTransactionStore = application.stores.pgTransactionStore(pool);
   const pgProductStore = application.stores.pgProductStore(pool);
@@ -46,7 +46,11 @@ function init(config) {
     useCases: {
       createProductUseCase
     },
-    eventBus
+    eventBus: {
+      on: (event, listener) => {
+        eventBus.on(event, obj => listener(Object.assign({}, obj)));
+      }
+    }
   };
 }
 
