@@ -5,7 +5,7 @@ function pgEventStore(pgClient) {
       text: 'INSERT INTO event(type, payload) VALUES($1, $2) RETURNING id',
       values: [type, payload]
     };
-    return client.query(query).then(r => r.rows);
+    return client.query(query).then(r => r.rows[0]);
   }
 
   async function markEventAsPublished(eventId) {

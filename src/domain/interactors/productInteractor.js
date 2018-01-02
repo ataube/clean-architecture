@@ -19,8 +19,19 @@ function productInteractor(
 
     await transactionStore.query(async trx => {
       const newProduct = await productStore.createProduct(product, { trx });
-      await eventStore.createEvent(types.PRODUCT_CREATED, newProduct, { trx });
-      eventBus.emit(types.PRODUCT_CREATED, entities.Product.create(newProduct));
+      const { id: eventId } = await eventStore.createEvent(
+        types.PRODUCT_CREATED,
+        newProduct,
+        { trx }
+      );
+      eventBus.emit(
+        types.PRODUCT_CREATED,
+        entities.Event.create({
+          id: eventId,
+          type: types.PRODUCT_CREATED,
+          payload: newProduct
+        })
+      );
       return newProduct.id;
     });
   }
