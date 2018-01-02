@@ -1,7 +1,9 @@
 const pg = require('./pg');
+const nats = require('./nats');
 
 module.exports = {
-  driver: {
-    pg
+  clients: {
+    pg,
+    nats
   }
 };

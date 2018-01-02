@@ -3,10 +3,12 @@ const application = require('./application');
 const infrastructure = require('./infrastructure');
 
 function init(config) {
-  const { pool } = infrastructure.driver.pg({
+  const { pool } = infrastructure.clients.pg({
     appName: config.appName,
     dbUrl: config.dbUrl
   });
+
+  const natsClient = infrastructure.clients.nats();
 
   const { entities, events } = domain;
   const eventBus = events.domainEventBus;
@@ -23,6 +25,17 @@ function init(config) {
   const pgTransactionStore = application.stores.pgTransactionStore(pool);
   const pgProductStore = application.stores.pgProductStore(pool);
   const pgEventStore = application.stores.pgEventStore(pool);
+
+  /**
+   * Application: Integration
+   */
+  const eventPublisher = application.eventPublisher(
+    natsClient,
+    pgEventStore,
+    publicEventBus
+  );
+
+  eventPublisher.listen();
 
   /**
    * Domain: Stores
