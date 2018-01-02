@@ -6,6 +6,8 @@ const main = require('./src/main.js');
     dbUrl: 'postgres://postgresql@localhost:5432/cleanarch'
   });
 
+  await domain.init();
+
   try {
     await domain.useCases.createProductUseCase({
       sku: 'ABC-123',

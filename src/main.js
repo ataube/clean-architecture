@@ -35,8 +35,6 @@ function init(config) {
     publicEventBus
   );
 
-  eventPublisher.listen();
-
   /**
    * Domain: Stores
    */
@@ -62,6 +60,9 @@ function init(config) {
   );
 
   return {
+    init: async () => {
+      eventPublisher.listen();
+    },
     useCases: {
       createProductUseCase
     },
