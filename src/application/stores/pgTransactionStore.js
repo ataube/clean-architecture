@@ -1,3 +1,5 @@
+const log = require('../../log')('application:pgTransactionStore');
+
 function pgTransactionStore(pgPool) {
   async function query(transactionScope) {
     const pgClient = await pgPool.connect();
@@ -7,8 +9,7 @@ function pgTransactionStore(pgPool) {
       await pgClient.query('COMMIT');
       return result;
     } catch (e) {
-      // TODO use logger
-      console.log('Error', e);
+      log.error('Error executing transaction scope', e);
       await pgClient.query('ROLLBACK');
       throw e;
     } finally {

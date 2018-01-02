@@ -1,3 +1,5 @@
+const log = require('../../log')('application:pgProductStore');
+
 function pgProductStore(pgClient) {
   async function createProduct(product, { trx }) {
     const client = trx || pgClient;
@@ -17,8 +19,7 @@ function pgProductStore(pgClient) {
         createdAt: row.created_at
       };
     } catch (e) {
-      // TODO use logger
-      console.log('>>>', e);
+      log.error('Error creating product', e);
       await client.query('ROLLBACK');
       throw e;
     }
