@@ -3,6 +3,12 @@ const domain = require('../../domain');
 
 const eventTypes = Object.keys(domain.events.types);
 
+/**
+ * Integration component to publish events to a system wide event bus like NATS, Kafka, RabbitMQ
+ * @param {*} client - the client
+ * @param {*} eventStore - the event store
+ * @param {*} eventBus - the domain event bus
+ */
 function eventPublisher(client, eventStore, eventBus) {
   async function publish(type, event) {
     try {
