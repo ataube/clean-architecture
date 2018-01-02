@@ -7,16 +7,11 @@ const main = require('./src/main.js');
   });
 
   try {
-    domain.eventBus.on('PRODUCT_CREATED', p => {
-      console.log('>>> PRODUCT_CREATED:', p);
-    });
-
     await domain.useCases.createProductUseCase({
       sku: 'ABC-123',
       brand: 'brand1',
       description: 'my desc'
     });
-    process.exit(0);
   } catch (e) {
     console.log('err', e);
     process.exit(1);
