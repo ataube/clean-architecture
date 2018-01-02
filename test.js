@@ -11,7 +11,6 @@ const main = require('./src/main.js');
       console.log('>>> PRODUCT_CREATED:', p);
     });
 
-    await domain.connect();
     await domain.useCases.createProductUseCase({
       sku: 'ABC-123',
       brand: 'brand1',
@@ -20,5 +19,6 @@ const main = require('./src/main.js');
     process.exit(0);
   } catch (e) {
     console.log('err', e);
+    process.exit(1);
   }
 })();
