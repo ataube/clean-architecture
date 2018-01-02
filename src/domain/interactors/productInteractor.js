@@ -6,11 +6,13 @@ function productInteractor(
   transactionStore,
   productStore,
   eventStore,
-  events
+  eventBus
 ) {
   assert.ok(entities);
+  assert.ok(transactionStore);
   assert.ok(productStore);
-  assert.ok(events);
+  assert.ok(eventStore);
+  assert.ok(eventBus);
 
   async function createProduct(productData) {
     const product = entities.Product.create(productData);
@@ -18,7 +20,7 @@ function productInteractor(
     await transactionStore.query(async trx => {
       const newProduct = await productStore.createProduct(product, { trx });
       await eventStore.createEvent(types.PRODUCT_CREATED, newProduct, { trx });
-      events.emit(types.PRODUCT_CREATED, entities.Product.create(newProduct));
+      eventBus.emit(types.PRODUCT_CREATED, entities.Product.create(newProduct));
       return newProduct.id;
     });
   }
