@@ -10,5 +10,5 @@ psql -f migrations/schema.sql postgres://postgresql@localhost:5432/cleanarch
 ## Run sample app
 ```bash
 npm i
-node test.js
+DEBUG=* node test.js
 ```
