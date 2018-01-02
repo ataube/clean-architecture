@@ -11,6 +11,12 @@ function init(config) {
   const { entities, events } = domain;
   const eventBus = events.domainEventBus;
 
+  const publicEventBus = {
+    on: (event, listener) => {
+      eventBus.on(event, obj => listener(Object.assign({}, obj)));
+    }
+  };
+
   /**
    * Application: Stores
    */
@@ -46,11 +52,7 @@ function init(config) {
     useCases: {
       createProductUseCase
     },
-    eventBus: {
-      on: (event, listener) => {
-        eventBus.on(event, obj => listener(Object.assign({}, obj)));
-      }
-    }
+    eventBus: publicEventBus
   };
 }
 
