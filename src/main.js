@@ -1,8 +1,9 @@
 const domain = require('./domain');
-const data = require('./data');
+const application = require('./application');
+const infrastructure = require('./infrastructure');
 
 function init(config) {
-  const { client } = data.driver.pg({
+  const { pool } = infrastructure.driver.pg({
     appName: config.appName,
     dbUrl: config.dbUrl
   });
@@ -13,19 +14,24 @@ function init(config) {
   /**
    * Data: Stores
    */
-  const pgProductStore = data.stores.pgProductStore(client);
+  const pgTransactionStore = application.stores.pgTransactionStore(pool);
+  const pgProductStore = application.stores.pgProductStore(pool);
+  const pgEventStore = application.stores.pgEventStore(pool);
 
   /**
    * Domain: Stores
    */
   const productStore = domain.stores.productStore(pgProductStore);
+  const eventStore = domain.stores.eventStore(pgEventStore);
 
   /**
    * Domain: Interactors
    */
   const productInteractor = domain.interactors.productInteractor(
     entities,
+    pgTransactionStore,
     productStore,
+    eventStore,
     eventBus
   );
 
@@ -40,8 +46,7 @@ function init(config) {
     useCases: {
       createProductUseCase
     },
-    eventBus,
-    connect: () => client.connect()
+    eventBus
   };
 }
 
